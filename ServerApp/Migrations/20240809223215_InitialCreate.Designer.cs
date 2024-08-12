@@ -12,7 +12,7 @@ using ServerApp.Models;
 namespace ServerApp.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20240809165750_InitialCreate")]
+    [Migration("20240809223215_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -49,8 +49,6 @@ namespace ServerApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("shortenedBy");
-
                     b.ToTable("ShortenedLinks");
                 });
 
@@ -76,22 +74,6 @@ namespace ServerApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("ServerApp.Models.ShortenedLink", b =>
-                {
-                    b.HasOne("ServerApp.Models.User", "user")
-                        .WithMany("ownedLinks")
-                        .HasForeignKey("shortenedBy")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("user");
-                });
-
-            modelBuilder.Entity("ServerApp.Models.User", b =>
-                {
-                    b.Navigation("ownedLinks");
                 });
 #pragma warning restore 612, 618
         }
